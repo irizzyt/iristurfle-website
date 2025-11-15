@@ -72,7 +72,7 @@ body.theme-contact { --bg1:#1c1f3d; --bg2:#252954; --bg3:#1a1c36; }
 
 .sections {
   display: grid;
-  gap: 32px;
+  gap: 0;
   padding: 16px 6px 24px;
 }
 
@@ -144,10 +144,36 @@ a:hover {
 .card {
   background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.00));
   border: none;
+  border-top: 1px solid rgba(168, 85, 247, 0.3);
   border-radius: 16px;
   padding: 22px 22px 12px;
   box-shadow: var(--shadow);
   margin-bottom: 0;
+}
+
+.card:first-child {
+  border-top: none;
+}
+
+/* Theme-based divider colors */
+section[data-theme="summary"].card,
+section[data-theme="education"].card {
+  border-top-color: rgba(99, 102, 241, 0.4);
+}
+
+section[data-theme="experience"].card,
+section[data-theme="leadership"].card {
+  border-top-color: rgba(124, 58, 237, 0.4);
+}
+
+section[data-theme="awards"].card,
+section[data-theme="skills"].card {
+  border-top-color: rgba(139, 92, 246, 0.4);
+}
+
+section[data-theme="projects"].card,
+section[data-theme="contact"].card {
+  border-top-color: rgba(168, 85, 247, 0.4);
 }
 .section-header { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 10px; margin: 4px 0 14px; }
 .section-header .kicker { font-weight: 700; font-size: 12px; letter-spacing: .18em; color: var(--accent); text-transform: uppercase; }
