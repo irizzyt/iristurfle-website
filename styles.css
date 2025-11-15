@@ -142,12 +142,12 @@ a:hover {
 }
 
 .card {
-  background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.00));
+  background: none;
   border: none;
-  border-top: 1px solid rgba(168, 85, 247, 0.3);
-  border-radius: 16px;
+  border-top: 2px solid;
+  border-radius: 0;
   padding: 22px 22px 12px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   margin-bottom: 0;
 }
 
@@ -155,25 +155,29 @@ a:hover {
   border-top: none;
 }
 
-/* Theme-based divider colors */
-section[data-theme="summary"].card,
-section[data-theme="education"].card {
-  border-top-color: rgba(99, 102, 241, 0.4);
+/* Alternating border colors between sections: blue, purple, red, grey */
+#summary-panel.card {
+  border-top-color: #3b82f6; /* blue */
 }
 
-section[data-theme="experience"].card,
-section[data-theme="leadership"].card {
-  border-top-color: rgba(124, 58, 237, 0.4);
+#education.card {
+  border-top-color: #a855f7; /* purple */
 }
 
-section[data-theme="awards"].card,
-section[data-theme="skills"].card {
-  border-top-color: rgba(139, 92, 246, 0.4);
+#experience.card {
+  border-top-color: #ef4444; /* red */
 }
 
-section[data-theme="projects"].card,
-section[data-theme="contact"].card {
-  border-top-color: rgba(168, 85, 247, 0.4);
+#leadership.card {
+  border-top-color: #6b7280; /* grey */
+}
+
+#awards.card {
+  border-top-color: #3b82f6; /* blue */
+}
+
+#skills.card {
+  border-top-color: #a855f7; /* purple */
 }
 .section-header { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 10px; margin: 4px 0 14px; }
 .section-header .kicker { font-weight: 700; font-size: 12px; letter-spacing: .18em; color: var(--accent); text-transform: uppercase; }
