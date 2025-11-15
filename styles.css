@@ -227,22 +227,6 @@ ul { margin: 0 0 12px 18px; }
   box-shadow: var(--shadow);
 }
 
-.github-button {
-  width: 65px;
-  height: 65px;
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.github-button:hover {
-  background-color: #40008a;
-  color: white;
-  border: none; 
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
 .email-button {
   width: 65px;
   height: 65px;
@@ -261,7 +245,7 @@ ul { margin: 0 0 12px 18px; }
   box-shadow: var(--shadow);
 }
 
-.phone-button {
+.github-button {
   background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
   border-radius: 8px;
   border-style: none;
@@ -282,7 +266,7 @@ ul { margin: 0 0 12px 18px; }
   touch-action: manipulation;
 }
 
-.phone-button:hover {
+.github-button:hover {
   box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
   transition-duration: .1s;
 }
