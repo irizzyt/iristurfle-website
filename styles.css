@@ -210,42 +210,12 @@ ul { margin: 0 0 12px 18px; }
   a { color: inherit; text-decoration: none; }
 }
 
-.linkedin-button {
-  width: 65px;
-  height: 65px;
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.linkedin-button:hover {
-  background-color: #40008a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
-
-.email-button {
-  width: 65px;
-  height: 65px;
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.email-button:hover {
-  background-color: #40008a;
-  color: white;
-  border: none;
-    border-radius: 50%;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
-
-.github-button {
+/* Base modern button style */
+.linkedin-button,
+.email-button,
+.github-button,
+.phone-button,
+.resume-button {
   background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
   border-radius: 8px;
   border-style: none;
@@ -266,49 +236,69 @@ ul { margin: 0 0 12px 18px; }
   touch-action: manipulation;
 }
 
-.github-button:hover {
+/* Individual button gradient variations */
+.linkedin-button {
+  background-image: linear-gradient(92.88deg, #0077B5 9.16%, #005885 43.89%, #004182 64.72%);
+}
+
+.email-button {
+  background-image: linear-gradient(92.88deg, #EA4335 9.16%, #C5221F 43.89%, #A50E0E 64.72%);
+}
+
+.github-button {
+  background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
+}
+
+.phone-button {
+  background-image: linear-gradient(92.88deg, #34A853 9.16%, #2E7D32 43.89%, #1B5E20 64.72%);
+}
+
+.resume-button {
+  background-image: linear-gradient(92.88deg, #FF6B6B 9.16%, #EE5A6F 43.89%, #DC4C64 64.72%);
+}
+
+/* Hover effects for all buttons */
+.linkedin-button:hover,
+.email-button:hover,
+.github-button:hover,
+.phone-button:hover,
+.resume-button:hover {
   box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
   transition-duration: .1s;
+  transform: translateY(-2px);
+}
+
+.linkedin-button:hover {
+  box-shadow: rgba(0, 119, 181, 0.5) 0 1px 30px;
+}
+
+.email-button:hover {
+  box-shadow: rgba(234, 67, 53, 0.5) 0 1px 30px;
+}
+
+.github-button:hover {
+  box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+}
+
+.phone-button:hover {
+  box-shadow: rgba(52, 168, 83, 0.5) 0 1px 30px;
+}
+
+.resume-button:hover {
+  box-shadow: rgba(255, 107, 107, 0.5) 0 1px 30px;
 }
 
 @media (min-width: 768px) {
-  .phone-button {
+  .linkedin-button,
+  .email-button,
+  .github-button,
+  .phone-button,
+  .resume-button {
     padding: 0 2.6rem;
-  
-  width: 65px;
-  height: 65px;
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
+  }
 }
-.phone-button:hover {
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
-.resume-button {
-  width: 65px;
-  height: 65px;
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-}
-.resume-button:hover {
-  background-color: #40008a;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-}
+
 #hero {
   margin-top: 200px;
   margin-bottom: 300px;
-}
 }
