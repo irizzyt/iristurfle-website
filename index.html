@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Professional Profile</title>
+    <title>Iris Turfle — Student, Finance Enthusiast, Creative</title>
+    <meta name="description" content="Personal website of Iris Turfle — exploring finance, writing, and technology">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,60 +26,88 @@
     <main id="content" class="page">
       <div class="sections">
         <section class="panel card hero" id="hero" data-theme="hero">
-          <div class="avatar-wrap">
-            <img id="avatar" class="avatar" src="https://api.dicebear.com/7.x/initials/svg?seed=Iris%20Turfle" alt="Profile photo placeholder">
-          </div>
-          <div class="hero-text">
-            <h1 id="name">Iris Turfle</h1>
-            <p id="headline" class="muted">Student, Interested in Finance • Greensboro, NC 27403</p>
-            <div id="contacts" class="contacts">
-              <a href="mailto:iturfle@guilford.edu">iturfle@guilford.edu</a>  • 
-              <span>336.588.9429  • </span>
-              <a href="https://www.linkedin.com/in/iristurfle" target="_blank"> <button id="linkedin-button" class="linkedin-button">LinkedIn</button></a>
-              <a href="https://www.github.com/iristurfle" target="_blank"> <button id="github-button" class="github-button">GitHub</button></a>
-              <button id="resume-button" class="resume-button">Resume</button>  
+          <div class="hero-content">
+            <div class="avatar-wrap">
+              <img id="avatar" class="avatar" src="https://api.dicebear.com/7.x/initials/svg?seed=Iris%20Turfle" alt="Iris Turfle">
+            </div>
+            <div class="hero-text">
+              <h1 id="name" class="hero-name">
+                <span class="name-line">Iris</span>
+                <span class="name-line">Turfle</span>
+              </h1>
+              <p id="headline" class="hero-tagline">Student • Finance Enthusiast • Creative Problem Solver</p>
+              <p class="hero-location muted">Greensboro, NC</p>
+              <div id="contacts" class="contacts">
+                <a href="mailto:iturfle@guilford.edu" class="contact-link">Email</a>
+                <span class="contact-separator">•</span>
+                <span class="contact-link">336.588.9429</span>
+                <span class="contact-separator">•</span>
+                <a href="https://www.linkedin.com/in/iristurfle" target="_blank" class="social-button linkedin-button" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://www.github.com/iristurfle" target="_blank" class="social-button github-button" aria-label="GitHub">GitHub</a>
+                <button class="social-button resume-button" aria-label="Resume">Resume</button>  
+              </div>
             </div>
           </div>
         </section>
 
-        <section class="panel card hub-section" id="my-experience" data-theme="summary">
-          <div class="hub-content">
-            <h2>My Experience</h2>
-            <p>View my education, work experience, leadership, and skills</p>
-            <a href="experience/index.html" class="hub-link">
-              <span class="arrow">→</span>
-            </a>
+        <section class="panel card mission-section" id="mission" data-theme="summary">
+          <div class="mission-content">
+            <h2 class="section-title">About</h2>
+            <p class="mission-text">I'm a student at The Early College at Guilford with a passion for finance, operations, and community leadership. I believe in combining analytical thinking with creative problem-solving to make meaningful impact.</p>
+            <p class="mission-text">Currently exploring opportunities in finance, technology, and writing while building experience through internships, tutoring, and leadership roles.</p>
           </div>
+        </section>
+
+        <section class="panel card hub-section" id="my-experience" data-theme="summary">
+          <a href="experience/index.html" class="hub-link-wrapper">
+            <div class="hub-content">
+              <div class="hub-icon">📚</div>
+              <h2 class="hub-title">Experience</h2>
+              <p class="hub-description">Education, work experience, leadership roles, and professional skills</p>
+            </div>
+            <div class="hub-arrow">
+              <span class="arrow">→</span>
+            </div>
+          </a>
         </section>
 
         <section class="panel card hub-section" id="my-writing" data-theme="summary">
-          <div class="hub-content">
-            <h2>My Writing</h2>
-            <p>Explore my articles, essays, and written work</p>
-            <a href="writing/index.html" class="hub-link">
+          <a href="writing/index.html" class="hub-link-wrapper">
+            <div class="hub-content">
+              <div class="hub-icon">✍️</div>
+              <h2 class="hub-title">Writing</h2>
+              <p class="hub-description">Articles, essays, and written work exploring ideas and perspectives</p>
+            </div>
+            <div class="hub-arrow">
               <span class="arrow">→</span>
-            </a>
-          </div>
+            </div>
+          </a>
         </section>
 
         <section class="panel card hub-section" id="my-projects" data-theme="summary">
-          <div class="hub-content">
-            <h2>My Projects</h2>
-            <p>View my coding projects, portfolio, and creative work</p>
-            <a href="projects/index.html" class="hub-link">
+          <a href="projects/index.html" class="hub-link-wrapper">
+            <div class="hub-content">
+              <div class="hub-icon">💻</div>
+              <h2 class="hub-title">Projects</h2>
+              <p class="hub-description">Coding projects, creative work, and technical portfolio</p>
+            </div>
+            <div class="hub-arrow">
               <span class="arrow">→</span>
-            </a>
-          </div>
+            </div>
+          </a>
         </section>
 
         <section class="panel card hub-section" id="my-other-stuff" data-theme="summary">
-          <div class="hub-content">
-            <h2>My Other Stuff</h2>
-            <p>Discover additional content, resources, and more</p>
-            <a href="other/index.html" class="hub-link">
+          <a href="other/index.html" class="hub-link-wrapper">
+            <div class="hub-content">
+              <div class="hub-icon">🌟</div>
+              <h2 class="hub-title">Other</h2>
+              <p class="hub-description">Additional content, resources, and miscellaneous work</p>
+            </div>
+            <div class="hub-arrow">
               <span class="arrow">→</span>
-            </a>
-          </div>
+            </div>
+          </a>
         </section>
 
       </div>
