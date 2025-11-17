@@ -157,6 +157,7 @@ p {
   box-shadow: none;
   margin: 0;
   transition: var(--transition);
+  position: relative;
 }
 
 .card:not(:first-child) {
@@ -185,6 +186,8 @@ p {
   padding: 80px 32px;
   margin-bottom: 40px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content {
@@ -281,6 +284,9 @@ p {
 .mission-section {
   padding: 48px 32px;
   margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+  background: var(--bg1);
 }
 
 .mission-content {

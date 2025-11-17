@@ -80,16 +80,27 @@
 
   // Add parallax effect to hero on scroll
   const hero = document.querySelector('.hero');
-  if (hero) {
-    let lastScroll = 0;
+  const missionSection = document.querySelector('.mission-section');
+  if (hero && missionSection) {
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
-      if (scrollY < window.innerHeight) {
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      const missionTop = missionSection.offsetTop;
+      
+      // Only apply parallax when hero is in view
+      if (scrollY < heroBottom) {
         const parallax = scrollY * 0.3;
         hero.style.transform = `translateY(${parallax}px)`;
-        hero.style.opacity = 1 - (scrollY / window.innerHeight) * 0.5;
+        
+        // Fade out as mission section approaches
+        const distanceToMission = missionTop - scrollY;
+        if (distanceToMission < window.innerHeight) {
+          const fadeAmount = Math.max(0, distanceToMission / window.innerHeight);
+          hero.style.opacity = fadeAmount;
+        } else {
+          hero.style.opacity = 1;
+        }
       }
-      lastScroll = scrollY;
     }, { passive: true });
   }
 
