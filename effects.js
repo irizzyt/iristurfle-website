@@ -184,12 +184,22 @@
   const topbar = document.querySelector('.topbar');
   let lastScrollY = window.scrollY;
   const scrollThreshold = 100; // Show topbar after scrolling 100px
-  const isHomePage = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html') || window.location.pathname.endsWith('/');
+  const pathname = window.location.pathname;
+  const isHomePage = pathname === '/' || pathname.endsWith('/index.html') || pathname.endsWith('/') || pathname.includes('/index.html');
+  const isContactPage = pathname.includes('/contact/') || pathname.includes('contact/index.html');
 
   if (topbar) {
-    // Show topbar immediately on non-home pages (contact, projects, etc.)
-    if (!isHomePage) {
+    // Show topbar permanently on contact page and other non-home pages
+    if (isContactPage || !isHomePage) {
       topbar.classList.add('topbar-visible');
+      // Ensure it stays visible even if scroll events fire
+      const keepTopbarVisible = () => {
+        topbar.classList.add('topbar-visible');
+      };
+      // Set it immediately
+      keepTopbarVisible();
+      // Also ensure it stays visible on any scroll
+      window.addEventListener('scroll', keepTopbarVisible, { passive: true });
     } else {
       // On homepage, only show after scrolling
       window.addEventListener('scroll', () => {
