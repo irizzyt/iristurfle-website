@@ -379,7 +379,7 @@ p {
 
 .hub-link-wrapper:hover .hub-icon {
   opacity: 1;
-  transform: scale(1.15) translateX(8px);
+  transform: scale(1.15);
 }
 
 .hub-title {
