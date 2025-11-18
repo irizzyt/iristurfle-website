@@ -82,14 +82,17 @@
   const hero = document.querySelector('.hero');
   const missionSection = document.querySelector('.mission-section');
   if (hero && missionSection) {
-    window.addEventListener('scroll', () => {
+    let ticking = false;
+    
+    const updateParallax = () => {
       const scrollY = window.scrollY;
       const heroBottom = hero.offsetTop + hero.offsetHeight;
       const missionTop = missionSection.offsetTop;
       
       // Only apply parallax when hero is in view
       if (scrollY < heroBottom) {
-        const parallax = scrollY * 0.3;
+        // Reduced parallax multiplier for smoother, more natural movement
+        const parallax = scrollY * 0.15;
         hero.style.transform = `translateY(${parallax}px)`;
         
         // Fade out as mission section approaches
@@ -100,6 +103,14 @@
         } else {
           hero.style.opacity = 1;
         }
+      }
+      ticking = false;
+    };
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
       }
     }, { passive: true });
   }
@@ -173,23 +184,30 @@
   const topbar = document.querySelector('.topbar');
   let lastScrollY = window.scrollY;
   const scrollThreshold = 100; // Show topbar after scrolling 100px
+  const isHomePage = window.location.pathname === '/' || window.location.pathname.endsWith('/index.html') || window.location.pathname.endsWith('/');
 
   if (topbar) {
-    window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > scrollThreshold) {
-        topbar.classList.add('topbar-visible');
-      } else {
-        topbar.classList.remove('topbar-visible');
-      }
-      
-      lastScrollY = currentScrollY;
-    }, { passive: true });
-
-    // Also check on page load in case user loads page mid-scroll
-    if (window.scrollY > scrollThreshold) {
+    // Show topbar immediately on non-home pages (contact, projects, etc.)
+    if (!isHomePage) {
       topbar.classList.add('topbar-visible');
+    } else {
+      // On homepage, only show after scrolling
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > scrollThreshold) {
+          topbar.classList.add('topbar-visible');
+        } else {
+          topbar.classList.remove('topbar-visible');
+        }
+        
+        lastScrollY = currentScrollY;
+      }, { passive: true });
+
+      // Also check on page load in case user loads page mid-scroll
+      if (window.scrollY > scrollThreshold) {
+        topbar.classList.add('topbar-visible');
+      }
     }
   }
 
