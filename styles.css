@@ -381,7 +381,7 @@ p {
 
 .hub-link-wrapper:hover .hub-icon {
   opacity: 1;
-  transform: translateX(400px) scale(1.15);
+  transform: translateX(67px) scale(1.15);
 }
 
 .hub-title {
