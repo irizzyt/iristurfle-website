@@ -1,0 +1,10 @@
+# Context file - keep local only, don't commit to GitHub
+context.md
+
+# Common files to ignore
+.DS_Store
+*.log
+node_modules/
+.env
+.env.local
+
