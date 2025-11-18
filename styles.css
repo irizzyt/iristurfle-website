@@ -160,7 +160,7 @@ p {
   border: none;
   border-top: 2px solid transparent;
   border-radius: 0;
-  padding: 0;
+  padding: 48px 32px;
   box-shadow: none;
   margin: 0;
   transition: var(--transition);
@@ -526,6 +526,36 @@ a:hover {
   padding-left: 20px;
 }
 
+/* Experience Page Content - More Spacing */
+.experience-content {
+  padding: 8px 0;
+  line-height: 1.8;
+}
+
+.experience-content p {
+  margin-bottom: 20px;
+  font-size: 17px;
+}
+
+.experience-content p:last-child {
+  margin-bottom: 0;
+}
+
+.experience-content ul {
+  margin: 20px 0 24px 24px;
+  padding-left: 0;
+}
+
+.experience-content li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+
+.experience-content strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
 /* Project Showcase Styles */
 .project-hero {
   padding: 48px 32px;
@@ -726,6 +756,42 @@ a:hover {
   color: var(--accent);
   font-weight: 600;
   font-size: 18px;
+}
+
+/* Writing Placeholder */
+.writing-placeholder {
+  padding: 80px 32px;
+  text-align: center;
+}
+
+.placeholder-content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.placeholder-icon {
+  font-size: 64px;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.placeholder-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.placeholder-text {
+  font-size: 18px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
 }
 
 /* Footer */
