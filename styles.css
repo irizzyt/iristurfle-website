@@ -365,6 +365,7 @@ p {
   flex-direction: column;
   gap: 8px;
   overflow: visible;
+  padding-right: 16px;
 }
 
 .hub-icon {
@@ -373,11 +374,12 @@ p {
   opacity: 0.8;
   transition: var(--transition);
   display: inline-block;
+  transform-origin: center center;
 }
 
 .hub-link-wrapper:hover .hub-icon {
   opacity: 1;
-  transform: scale(1.1) translateX(4px);
+  transform: scale(1.15) translateX(8px);
 }
 
 .hub-title {
