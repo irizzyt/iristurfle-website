@@ -169,4 +169,28 @@
     }, 100);
   });
 
+  // Show/hide topbar on scroll
+  const topbar = document.querySelector('.topbar');
+  let lastScrollY = window.scrollY;
+  const scrollThreshold = 100; // Show topbar after scrolling 100px
+
+  if (topbar) {
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > scrollThreshold) {
+        topbar.classList.add('topbar-visible');
+      } else {
+        topbar.classList.remove('topbar-visible');
+      }
+      
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+
+    // Also check on page load in case user loads page mid-scroll
+    if (window.scrollY > scrollThreshold) {
+      topbar.classList.add('topbar-visible');
+    }
+  }
+
 })();

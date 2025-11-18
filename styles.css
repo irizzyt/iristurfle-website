@@ -87,7 +87,14 @@ p {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(31, 41, 55, 0.5);
-  transition: var(--transition);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.topbar.topbar-visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .topbar-inner {
@@ -357,6 +364,7 @@ p {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow: visible;
 }
 
 .hub-icon {
@@ -364,11 +372,12 @@ p {
   margin-bottom: 8px;
   opacity: 0.8;
   transition: var(--transition);
+  display: inline-block;
 }
 
 .hub-link-wrapper:hover .hub-icon {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.1) translateX(4px);
 }
 
 .hub-title {
