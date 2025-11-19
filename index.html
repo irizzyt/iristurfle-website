@@ -4,19 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Iris Turfle — Student, Finance Enthusiast, Creative</title>
-    <meta name="description" content="Personal website of Iris Turfle — exploring finance, writing, and technology">
+    <meta name="description" content="Personal website of Iris Turfle — exploring finance, technology, and community leadership">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <canvas id="particles-canvas"></canvas>
+    <div class="background-effects">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+    </div>
     <header class="topbar">
       <div class="topbar-inner">
         <a class="brand" href="#hero">Iris Turfle</a>
         <nav class="nav">
           <a href="#my-experience">Experience</a>
-          <a href="#my-writing">Writing</a>
           <a href="#my-projects">Projects</a>
           <a href="#my-other-stuff">Other</a>
           <a href="contact/index.html">Contact</a>
@@ -36,7 +41,7 @@
                 <span class="name-line">Turfle</span>
               </h1>
               <p id="headline" class="hero-tagline">Student • Finance Enthusiast • Community Leader</p>
-              <p class="hero-location muted">Greensboro, NC</p>
+              <p class="hero-location">Greensboro, NC</p>
               <div id="contacts" class="contacts">
                 <a href="https://www.linkedin.com/in/iristurfle" target="_blank" class="social-button linkedin-button" aria-label="LinkedIn">LinkedIn</a>
                 <a href="https://www.github.com/iristurfle" target="_blank" class="social-button github-button" aria-label="GitHub">GitHub</a>
@@ -47,19 +52,27 @@
         </section>
 
         <section class="panel card mission-section" id="mission" data-theme="summary">
-          <div class="mission-content">
-            <h2 class="section-title">About</h2>
-            <p class="mission-text">I'm a student at The Early College at Guilford with a passion for finance, operations, and community leadership. I believe in combining analytical thinking with creative problem-solving to make meaningful impact.</p>
-            <p class="mission-text">Currently exploring opportunities in finance, technology, and writing while building experience through internships, tutoring, and leadership roles.</p>
+          <div class="mission-content scroll-reveal">
+            <div class="mission-image-wrapper image-left">
+              <div class="mission-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80');"></div>
+            </div>
+            <div class="mission-text-wrapper">
+              <h2 class="section-title">About</h2>
+              <p class="mission-text reveal-text">I'm a student at The Early College at Guilford with a passion for finance, operations, and community leadership. I believe in combining analytical thinking with creative problem-solving to make meaningful impact.</p>
+              <p class="mission-text reveal-text">Currently exploring opportunities in finance, technology, and operations while building experience through internships, tutoring, and leadership roles.</p>
+            </div>
           </div>
         </section>
 
-        <section class="panel card hub-section" id="my-experience" data-theme="summary">
+        <section class="panel card hub-section scroll-reveal" id="my-experience" data-theme="summary">
+          <div class="hub-image-wrapper image-right">
+            <div class="hub-image" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80');"></div>
+          </div>
           <a href="experience/index.html" class="hub-link-wrapper">
             <div class="hub-content">
               <div class="hub-icon">📚</div>
-              <h2 class="hub-title">Experience</h2>
-              <p class="hub-description">Education, work experience, leadership roles, and professional skills</p>
+              <h2 class="hub-title reveal-text">Experience</h2>
+              <p class="hub-description reveal-text">Education, work experience, leadership roles, and professional skills</p>
             </div>
             <div class="hub-arrow">
               <span class="arrow">→</span>
@@ -67,25 +80,15 @@
           </a>
         </section>
 
-        <section class="panel card hub-section" id="my-writing" data-theme="summary">
-          <a href="writing/index.html" class="hub-link-wrapper">
-            <div class="hub-content">
-              <div class="hub-icon">✍️</div>
-              <h2 class="hub-title">Writing</h2>
-              <p class="hub-description">Articles, essays, and written work exploring ideas and perspectives</p>
-            </div>
-            <div class="hub-arrow">
-              <span class="arrow">→</span>
-            </div>
-          </a>
-        </section>
-
-        <section class="panel card hub-section" id="my-projects" data-theme="summary">
+        <section class="panel card hub-section scroll-reveal" id="my-projects" data-theme="summary">
+          <div class="hub-image-wrapper image-left">
+            <div class="hub-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80');"></div>
+          </div>
           <a href="projects/index.html" class="hub-link-wrapper">
             <div class="hub-content">
               <div class="hub-icon">💻</div>
-              <h2 class="hub-title">Projects</h2>
-              <p class="hub-description">Coding projects, creative work, and technical portfolio</p>
+              <h2 class="hub-title reveal-text">Projects</h2>
+              <p class="hub-description reveal-text">Coding projects, creative work, and technical portfolio</p>
             </div>
             <div class="hub-arrow">
               <span class="arrow">→</span>
@@ -93,12 +96,15 @@
           </a>
         </section>
 
-        <section class="panel card hub-section" id="my-other-stuff" data-theme="summary">
+        <section class="panel card hub-section scroll-reveal" id="my-other-stuff" data-theme="summary">
+          <div class="hub-image-wrapper image-right">
+            <div class="hub-image" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80');"></div>
+          </div>
           <a href="other/index.html" class="hub-link-wrapper">
             <div class="hub-content">
               <div class="hub-icon">🌟</div>
-              <h2 class="hub-title">Other</h2>
-              <p class="hub-description">Additional content, resources, and miscellaneous work</p>
+              <h2 class="hub-title reveal-text">Other</h2>
+              <p class="hub-description reveal-text">Additional content, resources, and miscellaneous work</p>
             </div>
             <div class="hub-arrow">
               <span class="arrow">→</span>

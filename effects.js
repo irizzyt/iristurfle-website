@@ -1,66 +1,214 @@
 (() => {
   'use strict';
 
-  // Theme management
-  const panels = Array.from(document.querySelectorAll('.panel'));
-  if (panels.length === 0) return;
+  // ============================================
+  // PARTICLE SYSTEM - Subtle
+  // ============================================
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
 
-  const themePrefix = 'theme-';
-  const knownThemes = new Set(['hero','summary','experience','leadership','projects','skills','education','awards','contact']);
-  let currentTheme = '';
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    }
 
-  function applyTheme(theme) {
-    if (!theme || theme === currentTheme) return;
-    document.body.classList.remove(...Array.from(document.body.classList).filter(c => c.startsWith(themePrefix)));
-    document.body.classList.add(themePrefix + theme);
-    currentTheme = theme;
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.2;
+        this.speedY = (Math.random() - 0.5) * 0.2;
+        this.opacity = Math.random() * 0.3 + 0.1;
+        this.color = `rgba(139, 92, 246, ${this.opacity})`;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Wrap around edges
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Create particles - fewer and more subtle
+    function initParticles() {
+      const particleCount = Math.floor((canvas.width * canvas.height) / 30000);
+      particles = [];
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    initParticles();
+
+    // Draw connections - more subtle
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const opacity = (1 - distance / 150) * 0.15;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      drawConnections();
+      animationId = requestAnimationFrame(animate);
+    }
+
+    animate();
   }
 
-  let lastIntersecting = null;
-  
-  // Enhanced Intersection Observer for scroll animations
-  const io = new IntersectionObserver((entries) => {
-    let mostVisible = null;
-    let maxRatio = 0;
-    
-    for (const entry of entries) {
-      // Add in-view class for animations
+  // ============================================
+  // SCROLL REVEAL WITH IMAGES
+  // ============================================
+  const imageWrappers = document.querySelectorAll('.mission-image-wrapper, .hub-image-wrapper');
+  const revealTexts = document.querySelectorAll('.reveal-text');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+        
+        // Reveal text elements when image is in view
+        const section = entry.target.closest('.scroll-reveal');
+        if (section) {
+          const texts = section.querySelectorAll('.reveal-text');
+          texts.forEach((text, index) => {
+            setTimeout(() => {
+              text.classList.add('revealed');
+            }, index * 200);
+          });
+        }
       }
-      
-      // Theme management
-      if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
-        maxRatio = entry.intersectionRatio;
-        mostVisible = entry;
-      }
-    }
-    
-    // Change theme based on most visible section
-    if (mostVisible && maxRatio >= 0.25 && mostVisible.target !== lastIntersecting) {
-      const theme = mostVisible.target.getAttribute('data-theme');
-      if (knownThemes.has(theme)) {
-        applyTheme(theme);
-        lastIntersecting = mostVisible.target;
-      }
-    }
-  }, { 
-    threshold: [0.1, 0.25, 0.5, 0.75],
-    rootMargin: '-50px 0px -50px 0px'
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: '0px 0px -100px 0px'
   });
 
-  // Observe all panels
-  panels.forEach((p) => io.observe(p));
+  imageWrappers.forEach(wrapper => revealObserver.observe(wrapper));
+  revealTexts.forEach(text => revealObserver.observe(text));
 
-  // Set initial theme
-  const first = panels[0];
-  if (first) {
-    const t = first.getAttribute('data-theme');
-    if (knownThemes.has(t)) applyTheme(t);
-    first.classList.add('in-view');
+  // ============================================
+  // SCROLL ANIMATIONS
+  // ============================================
+  const panels = Array.from(document.querySelectorAll('.panel'));
+  if (panels.length > 0) {
+    const observerOptions = {
+      threshold: [0, 0.1, 0.3, 0.5],
+      rootMargin: '-50px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          
+          // Stagger animation for hub sections
+          if (entry.target.classList.contains('hub-section')) {
+            const index = Array.from(entry.target.parentElement.children).indexOf(entry.target);
+            entry.target.style.transitionDelay = `${index * 0.1}s`;
+          }
+        }
+      });
+    }, observerOptions);
+
+    panels.forEach(panel => observer.observe(panel));
   }
 
-  // Smooth scroll for anchor links
+  // ============================================
+  // PARALLAX EFFECTS - Subtle
+  // ============================================
+  const hero = document.querySelector('.hero');
+  const orbs = document.querySelectorAll('.gradient-orb');
+  const images = document.querySelectorAll('.mission-image, .hub-image');
+  
+  if (hero) {
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          const rate = scrolled * -0.1;
+          
+          if (scrolled < window.innerHeight) {
+            hero.style.transform = `translateY(${rate}px)`;
+            hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.4;
+          }
+
+          // Subtle parallax for orbs
+          orbs.forEach((orb, index) => {
+            const speed = (index + 1) * 0.05;
+            orb.style.transform = `translateY(${scrolled * speed}px)`;
+          });
+
+          // Parallax for images
+          images.forEach((img, index) => {
+            const rect = img.getBoundingClientRect();
+            const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+            
+            if (isVisible) {
+              const imgTop = rect.top + window.pageYOffset;
+              const scrollProgress = (window.pageYOffset - imgTop + window.innerHeight) / (window.innerHeight * 2);
+              const parallax = scrollProgress * 30;
+              img.style.transform = `scale(1) translateY(${parallax}px)`;
+            }
+          });
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ============================================
+  // SMOOTH SCROLL
+  // ============================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
@@ -69,7 +217,7 @@
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
-        const offsetTop = target.offsetTop - 80;
+        const offsetTop = target.offsetTop - 100;
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth'
@@ -78,60 +226,12 @@
     });
   });
 
-  // Add parallax effect to hero on scroll
-  const hero = document.querySelector('.hero');
-  const missionSection = document.querySelector('.mission-section');
-  if (hero && missionSection) {
-    let ticking = false;
-    
-    const updateParallax = () => {
-      const scrollY = window.scrollY;
-      const heroBottom = hero.offsetTop + hero.offsetHeight;
-      const missionTop = missionSection.offsetTop;
-      
-      // Only apply parallax when hero is in view
-      if (scrollY < heroBottom) {
-        // Reduced parallax multiplier for smoother, more natural movement
-        const parallax = scrollY * 0.15;
-        hero.style.transform = `translateY(${parallax}px)`;
-        
-        // Fade out as mission section approaches
-        const distanceToMission = missionTop - scrollY;
-        if (distanceToMission < window.innerHeight) {
-          const fadeAmount = Math.max(0, distanceToMission / window.innerHeight);
-          hero.style.opacity = fadeAmount;
-        } else {
-          hero.style.opacity = 1;
-        }
-      }
-      ticking = false;
-    };
-    
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  // Add hover effects to hub sections
-  const hubSections = document.querySelectorAll('.hub-link-wrapper');
-  hubSections.forEach(section => {
-    section.addEventListener('mouseenter', function() {
-      this.style.transform = 'translateX(8px)';
-    });
-    
-    section.addEventListener('mouseleave', function() {
-      this.style.transform = 'translateX(0)';
-    });
-  });
-
-  // Add micro-interactions to buttons
+  // ============================================
+  // BUTTON RIPPLE EFFECT
+  // ============================================
   const buttons = document.querySelectorAll('.social-button');
   buttons.forEach(button => {
     button.addEventListener('click', function(e) {
-      // Create ripple effect
       const ripple = document.createElement('span');
       const rect = this.getBoundingClientRect();
       const size = Math.max(rect.width, rect.height);
@@ -145,80 +245,71 @@
       
       this.appendChild(ripple);
       
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
+      setTimeout(() => ripple.remove(), 800);
     });
   });
 
-  // Lazy load images
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-          }
-          observer.unobserve(img);
-        }
-      });
-    });
-
-    document.querySelectorAll('img[data-src]').forEach(img => {
-      imageObserver.observe(img);
-    });
-  }
-
-  // Add fade-in animation on page load
-  window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-      document.body.style.transition = 'opacity 0.5s ease';
-      document.body.style.opacity = '1';
-    }, 100);
-  });
-
-  // Show/hide topbar on scroll
+  // ============================================
+  // TOPBAR VISIBILITY
+  // ============================================
   const topbar = document.querySelector('.topbar');
-  let lastScrollY = window.scrollY;
-  const scrollThreshold = 100; // Show topbar after scrolling 100px
+  const scrollThreshold = 100;
   const pathname = window.location.pathname;
-  const isHomePage = pathname === '/' || pathname.endsWith('/index.html') || pathname.endsWith('/') || pathname.includes('/index.html');
+  const isHomePage = pathname === '/' || pathname.endsWith('/index.html') || pathname.endsWith('/');
   const isContactPage = pathname.includes('/contact/') || pathname.includes('contact/index.html');
 
   if (topbar) {
-    // Show topbar permanently on contact page and other non-home pages
     if (isContactPage || !isHomePage) {
       topbar.classList.add('topbar-visible');
-      // Ensure it stays visible even if scroll events fire
-      const keepTopbarVisible = () => {
-        topbar.classList.add('topbar-visible');
-      };
-      // Set it immediately
-      keepTopbarVisible();
-      // Also ensure it stays visible on any scroll
-      window.addEventListener('scroll', keepTopbarVisible, { passive: true });
+      const keepVisible = () => topbar.classList.add('topbar-visible');
+      keepVisible();
+      window.addEventListener('scroll', keepVisible, { passive: true });
     } else {
-      // On homepage, only show after scrolling
       window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > scrollThreshold) {
+        if (window.scrollY > scrollThreshold) {
           topbar.classList.add('topbar-visible');
         } else {
           topbar.classList.remove('topbar-visible');
         }
-        
-        lastScrollY = currentScrollY;
       }, { passive: true });
 
-      // Also check on page load in case user loads page mid-scroll
       if (window.scrollY > scrollThreshold) {
         topbar.classList.add('topbar-visible');
       }
     }
   }
+
+  // ============================================
+  // PAGE LOAD ANIMATION
+  // ============================================
+  // Removed - content should be visible immediately
+
+  // ============================================
+  // HUB SECTION INTERACTIONS
+  // ============================================
+  const hubSections = document.querySelectorAll('.hub-link-wrapper');
+  hubSections.forEach(section => {
+    section.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateX(8px)';
+    });
+    
+    section.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateX(0)';
+    });
+  });
+
+  // ============================================
+  // SMOOTH CARD HOVER EFFECTS
+  // ============================================
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-4px)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+    });
+  });
 
 })();
